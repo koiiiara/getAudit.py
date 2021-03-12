@@ -1,5 +1,4 @@
 # This is a sample Python script.
-
 # Press ⌃R to execute it or replace it with your code.
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 
@@ -63,6 +62,12 @@ def getLastAudit(automatId):
                             auditFile.write(getAuditResponse.text)
                         with open(str(automatId) + "/lastAudit.txt", "w") as lastAuditFile:
                             lastAuditFile.write(audit["date"])
+                        print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                              + " - Автомат "
+                              + str(automatId)
+                              + " аудит № "
+                              + str(audit["id"])
+                              + " - Загружено")
         else:
             print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                   +" - Автомат: " + str(automatId)
