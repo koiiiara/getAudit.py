@@ -62,7 +62,7 @@ def getLastAudit(automatId):
                                                         headers={"Cookie": Cookie})
                         with open(str(automatId) + "/audit" + str(audit["id"]) + "_" + audit["date"], "w") as auditFile:
                             auditFile.write(getAuditResponse.text)
-                        with open(auditsFolder + str(automatId) + "-" + audit["date"] + ".txt", "w") as auditFile1:
+                        with open(auditsFolder + "audit" + str(automatId) + "-" + currentAuditDate.strftime("%d%m%y-%H%M%S") + ".txt", "w") as auditFile1:
                             auditFile1.write(getAuditResponse.text)
                         with open(str(automatId) + "/lastAudit.txt", "w") as lastAuditFile:
                             lastAuditFile.write(audit["date"])
