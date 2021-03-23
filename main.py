@@ -11,6 +11,7 @@ import datetime
 authUrl = "https://erp.ephor.online/api/1.0/Auth.php"
 auditUrl = "https://erp.ephor.online/api/1.0/audit/Audit.php"
 automatUrl = "https://erp.ephor.online/api/1.0/automat/Automat.php"
+auditsFolder = "audits/"
 authAction = { "action" : "Login", "_dc": time.time() }
 listAutomatAction = { "action" : "ReadAutomatDetail" }
 
@@ -34,6 +35,7 @@ for automat in automatlist["data"]:
 def getLastAudit(automatId):
     folder = str(automatId)
     audits = {}
+    auditsCnt = 0
     listAuditAction = {"action": "ReadAudit",
                        "filter": '[{"property":"automat_id","value":"' + str(automatId) + '"}]'}
     auditListResponse = requests.get(auditUrl,
@@ -60,6 +62,8 @@ def getLastAudit(automatId):
                                                         headers={"Cookie": Cookie})
                         with open(str(automatId) + "/audit" + str(audit["id"]) + "_" + audit["date"], "w") as auditFile:
                             auditFile.write(getAuditResponse.text)
+                        with open(auditsFolder + str(automatId) + "-" + audit["date"] + ".txt", "w") as auditFile1:
+                            auditFile1.write(getAuditResponse.text)
                         with open(str(automatId) + "/lastAudit.txt", "w") as lastAuditFile:
                             lastAuditFile.write(audit["date"])
                         print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -74,7 +78,7 @@ def getLastAudit(automatId):
                   + " - статистик нет " )
     else:
         print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-              + " - Ошибка получения списка уадитов: "
+              + " - Ошибка получения списка аудитов: "
               + auditList)
 
 
