@@ -15,7 +15,7 @@ auditsFolder = "audits/"
 authAction = { "action" : "Login", "_dc": time.time() }
 listAutomatAction = { "action" : "ReadAutomatDetail" }
 
-secret = '[{ "login" : "master175", "password" : "123123" }]'
+secret = '[{ "login" : "", "password" : "" }]'
 
 #Login and save cookies
 loginResponse = requests.post(authUrl, params = authAction, data = secret)
